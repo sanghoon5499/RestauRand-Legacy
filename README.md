@@ -19,3 +19,16 @@ Randomly selects a restaurant in waterloo for you to go to.
 
 3. randomize
 - obj["data"][*index*]
+
+
+
+main page:
+- button: "Find me a restaurant"
+- if button click:
+   - store random_rest. in localStorage
+   - redirect to page with google map
+
+maps page:
+- show the restaurant location
+- with other info
+- another button: find me a differen restaurant.
