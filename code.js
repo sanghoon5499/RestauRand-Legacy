@@ -1,45 +1,84 @@
 // key: AIzaSyBMCbfKMOQmplUNvOiHNBalzBiXXabRG2c
 
+// This example requires the Places library. Include the libraries=places
+// parameter when you first load the API. For example:
+// <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIwzALxUPNbatRBj3Xi1Uhp0fFzwWNBkE&libraries=places">
 function initMap() {
-// Create the map.
-const waterloo = { lat: 43.46, lng: -80.52 };
-const map = new google.maps.Map(document.getElementById("map"), {
-    center: waterloo,
-    zoom: 17,
-    mapId: "8d193001f940fde3",
-});
+    // Create the map.
+    const waterloo = { lat: 43.46, lng: -80.52 };
+    const map = new google.maps.Map(document.getElementById("map"), {
+        center: waterloo,
+        zoom: 5,
+        mapId: "8d193001f940fde3",
+    });
+    // Create the places service.
+    const service = new google.maps.places.PlacesService(map);
+    let getNextPage;
+    const moreButton = document.getElementById("more");
 
+    moreButton.onclick = function () {
+        moreButton.disabled = true;
 
-// Create the places service.
-const service = new google.maps.places.PlacesService(map);
-let getNextPage;
-const moreButton = document.getElementById("more");
+        if (getNextPage) {
+            getNextPage();
+        }
+    };
 
-moreButton.onclick = function () {
-    moreButton.disabled = true;
-
-    if (getNextPage) {
-    getNextPage();
+    obj = {
+        "data": [],
     }
-};
+    let load = 0
+    // Perform a nearby search.
+    service.nearbySearch(
+        { location: waterloo, radius: 1000, type: "restaurant" },
+        (results, status, pagination) => {
+            if (status !== "OK" || !results) {
+                console.log(obj["data"])
+                console.log("finished")
+                return;
+            }
+            for (i in results) {
+                let index = parseInt(i)
+                if (load == 1) {
+                    index += 20
+                }
+                else if (load == 2) {
+                    index += 40
+                }
+                index.toString()
+                //console.log(results[i])
+                obj["data"][index] = results[i]
+            }
 
+            // obj["data"] += jsonify(results)
+            addPlaces(results, map);
 
-// Perform a nearby search.
-service.nearbySearch(
-    { location: waterloo, radius: 1000, type: "restaurant" },
-    (results, status, pagination) => {
-    if (status !== "OK" || !results) return;
-    addPlaces(results, map);
-    moreButton.disabled = !pagination || !pagination.hasNextPage;
+            if (load == 2) {
+                const filename = 'data.json';
+                const jsonStr = JSON.stringify(obj);
+        
+                let element = document.createElement('a');
+                element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(jsonStr));
+                element.setAttribute('download', filename);
+        
+                element.style.display = 'none';
+                document.body.appendChild(element);
+        
+                element.click();
+        
+                document.body.removeChild(element);
+            }
+            moreButton.disabled = !pagination || !pagination.hasNextPage;
 
-    if (pagination && pagination.hasNextPage) {
-        getNextPage = () => {
-        // Note: nextPage will call the same handler function as the initial call
-        pagination.nextPage();
-        };
-    }
-    }
-);
+            if (pagination && pagination.hasNextPage) {
+                getNextPage = () => {
+                    // Note: nextPage will call the same handler function as the initial call
+                    pagination.nextPage();
+                    load++
+                };
+            }
+        }
+    );
 }
 
 var placesArr = [];
@@ -82,6 +121,6 @@ function addPlaces(places, map) {
 
     // choose a random index:
     var idx = Math.floor(Math.random() * placesArr.length);
-    alert(placesArr[idx])
+    //alert(placesArr[idx])
     
 }

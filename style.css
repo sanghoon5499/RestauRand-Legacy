@@ -6,32 +6,34 @@ body {
   padding: 0;
 }
 
-.bigButton {
-  display: block;
-}
-
 #container {
-  height: 100%;
+  height: 70%;
+  width: 30%;
+  margin: 0 auto;
   display: flex;
+  flex-direction: row;
 }
 
 #sidebar {
   flex-basis: 5rem;
   flex-grow: 1;
   padding: 1rem;
-  max-width: 30rem;
+  max-width: 0rem;
   height: 100%;
   box-sizing: border-box;
   display: flex;
 }
 
 #map {
+  top: 25%;
+  left: 50%;
   flex-basis: 0;
   flex-grow: 4;
-  height: 100%;
+  height: 80%;
 }
 
 #sidebar {
+  visibility: hidden;
   display: flex;
   flex-direction: column;
 }
