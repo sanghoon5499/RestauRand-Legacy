@@ -8,7 +8,7 @@ function initMap() {
     const waterloo = { lat: 43.46, lng: -80.52 };
     const map = new google.maps.Map(document.getElementById("map"), {
         center: waterloo,
-        zoom: 5,
+        zoom: 16,
         mapId: "8d193001f940fde3",
     });
     // Create the places service.
@@ -81,7 +81,7 @@ function initMap() {
     );
 }
 
-var placesArr = [];
+
 
 function addPlaces(places, map) {
     const placesList = document.getElementById("places");
@@ -107,8 +107,11 @@ function addPlaces(places, map) {
         const li = document.createElement("li");
         li.textContent = place.name;
 
+        var placesArr = [];
         // use place.name to add to array
-        placesArr.push(place.name);
+        if (placesArr.length <= 59) {
+            placesArr.push(place.name);
+        }
         console.log(place.name)
 
 
@@ -121,6 +124,10 @@ function addPlaces(places, map) {
 
     // choose a random index:
     var idx = Math.floor(Math.random() * placesArr.length);
+    document.getElementById("info").innerHTML = placesArr[idx];
     //alert(placesArr[idx])
+    
+
+    // create a function for this later
     
 }

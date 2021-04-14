@@ -7,6 +7,13 @@
     <title>RestaurRand</title>
 
     <link rel="stylesheet" href="index_style.css">
+
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIwzALxUPNbatRBj3Xi1Uhp0fFzwWNBkE&callback=initMap&libraries=places&v=weekly&map_ids=8d193001f940fde3"
+        async
+        src="code.js"
+    ></script>
+    
 </head>
 
 
@@ -27,7 +34,7 @@
         <input type="text" autocomplete="off" id="username" name="username" placeholder="username">
         <br>-->
         
-        <input type="button" value="Find me a restaurant!" style="font-size: 200%" onClick="randomizer()">
+        <input type="button" value="Find me a restaurant!" style="font-size: 200%" onClick="changePage()">
         </form>
 
         <br><br><br><br>
@@ -37,8 +44,8 @@
 
 
     <script> 
-        function randomizer() {
-            //
+        function changePage() {
+            window.location.href = "maps.html"
         }
     </script>
 
