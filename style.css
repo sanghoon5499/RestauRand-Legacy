@@ -1,3 +1,14 @@
+#loading {
+  background: url("spinner.gif") no-repeat center center;
+  /*background-color: red;*/
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 9999999;
+}
+
 /* Optional: Makes the sample page fill the window. */
 html,
 body {
@@ -6,9 +17,16 @@ body {
   padding: 0;
 }
 
+#address {
+  font-size: 150%;
+}
+
+#rname {
+  font-size: 300%;
+}
+
 #info {
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 300%;
 
   position: absolute;
   outline: 5px dashed black;

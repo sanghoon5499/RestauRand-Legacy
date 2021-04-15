@@ -1,22 +1,53 @@
 // key: AIzaSyBMCbfKMOQmplUNvOiHNBalzBiXXabRG2c
 
+
+// https://www.w3schools.com/html/tryit.asp?filename=tryhtml5_geolocation
+// https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API 
+//   - HTML geolocation to find the user's lat and long
+
+
+// https://developers.google.com/maps/documentation/javascript/directions
+//   - with user's lat and long, we can try to give the directions
+
+
+// https://gist.github.com/derzorngottes/3b57edc1f996dddcab25
+//   - how to hide sensitive information on GitHub
+
+
+
+
 // This example requires the Places library. Include the libraries=places
 // parameter when you first load the API. For example:
 // <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIwzALxUPNbatRBj3Xi1Uhp0fFzwWNBkE&libraries=places">
 function initMap() {
+    //document.getElementById("information").style.display = "none";
+    document.getElementById("loading").style.display = "block";
+    // var latitude = localStorage.getItem("lat");
+    // var longitude = localStorage.getItem("lng");
+
+
     // Create the map.
-    const waterloo = { lat: 43.46, lng: -80.52 };
-    const map = new google.maps.Map(document.getElementById("map"), {
+    const waterloo = { lat: 43.46, lng: -80.52 };  // default values
+    var map = new google.maps.Map(document.getElementById("map"), {
         center: waterloo,
-        zoom: 16,
+        zoom: 17,
         mapId: "8d193001f940fde3",
     });
     // Create the places service.
     const service = new google.maps.places.PlacesService(map);
     let getNextPage;
     const moreButton = document.getElementById("more");
+    
+    // automate getNextPage
+    for (let i = 0; i < 3; i++){
+        moreButton.disabled = true;
+        if (getNextPage) {            // this if statement always false?
+            getNextPage();
+        }
+    }
+    
 
-    moreButton.onclick = function () {
+    moreButton.onclick = function () { // might not need this anymore since im making it run no matter what
         moreButton.disabled = true;
 
         if (getNextPage) {
@@ -51,7 +82,7 @@ function initMap() {
             }
 
             // obj["data"] += jsonify(results)
-            addPlaces(results, map);
+            addPlaces(results, map, load);
 
             if (load == 2) {
                 const filename = 'data.json';
@@ -70,7 +101,12 @@ function initMap() {
             }
             moreButton.disabled = !pagination || !pagination.hasNextPage;
 
-            if (pagination && pagination.hasNextPage) {
+            if (load != 2) {
+                pagination.nextPage();
+                load++
+            }
+
+            else if (pagination && pagination.hasNextPage) {
                 getNextPage = () => {
                     // Note: nextPage will call the same handler function as the initial call
                     pagination.nextPage();
@@ -82,17 +118,17 @@ function initMap() {
 }
 
 
-
-function addPlaces(places, map) {
+var placesArr = [];
+function addPlaces(places, map, load) {
     const placesList = document.getElementById("places");
 
     for (const place of places) {
         if (place.geometry && place.geometry.location) {
         const image = {
             url: place.icon,
-            size: new google.maps.Size(71, 71),
+            size: new google.maps.Size(0, 0),
             origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(17, 34),
+            anchor: new google.maps.Point(17, 14),
             scaledSize: new google.maps.Size(25, 25),
         };
         new google.maps.Marker({
@@ -101,15 +137,17 @@ function addPlaces(places, map) {
             title: place.name,
             position: place.geometry.location,
         });
+        map.setMapTypeId('terrain');
+        // google.maps.event.trigger(map, 'resize')
 
         
 
         const li = document.createElement("li");
         li.textContent = place.name;
 
-        var placesArr = [];
+        
         // use place.name to add to array
-        if (placesArr.length <= 59) {
+        if (placesArr.length < 60) {
             placesArr.push(place.name);
         }
         console.log(place.name)
@@ -124,10 +162,55 @@ function addPlaces(places, map) {
 
     // choose a random index:
     var idx = Math.floor(Math.random() * placesArr.length);
-    document.getElementById("info").innerHTML = placesArr[idx];
+    document.getElementById("rname").innerHTML = placesArr[idx];
     //alert(placesArr[idx])
+
+
+    // maybe create a function for this later
+    var price_level = obj["data"][idx]["price_level"];
+    
+    var address = obj["data"][idx]["vicinity"];
+    var straddress = address.substring(0, address.indexOf(",")) // cuts of "Waterloo, ON" part of address
+
+
+    //replace element
+    document.getElementById("address").innerHTML = straddress;
+
+
+
+    // we found a place; pan the map to that location:
+    if (load == 2) {
+        const geocoder = new google.maps.Geocoder();
+        geocodeAddress(geocoder, map, address);
+        document.getElementById("loading").style.display = "none";
+    }
     
 
-    // create a function for this later
-    
+
+
+
+    // debug
+    console.log(obj["data"][idx]["price_level"])
+    console.log(straddress);
+    console.log(obj["data"]["geometry"]);
+    console.log(obj["data"][0]);
 }
+
+
+
+// converts location to longitude and latitude
+function geocodeAddress(geocoder, resultsMap, fullAddress) {
+    const address = fullAddress;
+    geocoder.geocode({ address: address }, (results, status) => {
+      if (status === "OK") {
+        resultsMap.setCenter(results[0].geometry.location);
+        new google.maps.Marker({
+          map: resultsMap,
+          position: results[0].geometry.location,
+        });
+      } else {
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    });
+  }
+  

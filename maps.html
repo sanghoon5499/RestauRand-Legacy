@@ -2,10 +2,10 @@
 <html lang="en">
 
     <script>
-        src="https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurants+toronto+canada&key=AIzaSyBMCbfKMOQmplUNvOiHNBalzBiXXabRG2c" 
+        src="https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurants+waterloo+canada&key=AIzaSyBMCbfKMOQmplUNvOiHNBalzBiXXabRG2c" 
         src="code.js"
+        src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
     </script>
-
 
 
 
@@ -17,19 +17,40 @@
     </head>
 
 
+    
 
 
-    <body>
+    <body id="information">
         <br>
-        <div id="info"></div>
-        <div id="container" class="resultsList">
-        <div id="map"></div>
-        <div id="sidebar">
-        <!--<h2>Results</h2>-->
-        <ul id="places"></ul>
-        <button id="more">Load more results</button>
+        <div id="info">
+            <div id="rname"></div>
+            <br><br><br>
+            <div id="address"></div>
         </div>
-    </div>
+        
+        <div id="container" class="resultsList">
+            <div id="map"></div>
+            <div id="sidebar">
+                <!--<h2>Results</h2>-->
+                <ul id="places"></ul>
+                <button id="more">Load more results</button>
+            </div>
+        </div>
+
+        <!-- Take a while to load; loading gif-->
+        <div id="loading"></div>
+
+        <script>
+            $(document).ready(function() {
+                    window.setTimeout("fadeMyDiv();", 3000); //call fade in 3 seconds
+                }
+            )
+
+            function fadeMyDiv() {
+                $("#myDiv").fadeOut('slow');
+            }
+        </script>
+
 
     <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
     <script
