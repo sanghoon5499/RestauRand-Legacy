@@ -3,8 +3,9 @@
 
     <script>
         src="https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurants+waterloo+canada&key=AIzaSyBMCbfKMOQmplUNvOiHNBalzBiXXabRG2c" 
+    </script>
+    <script>
         src="code.js"
-        src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
     </script>
 
 
@@ -39,15 +40,25 @@
 
         <!-- Take a while to load; loading gif-->
         <div id="loading"></div>
+        <div id="whiteBackdrop">
+            <h3 id="loadingTxt">Loading...</h3>
+        </div>
 
+        <script
+			  src="https://code.jquery.com/jquery-3.6.0.min.js"
+			  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+			  crossorigin="anonymous"></script>
         <script>
             $(document).ready(function() {
-                    window.setTimeout("fadeMyDiv();", 3000); //call fade in 3 seconds
+                //fadeMyDiv();
+                window.setTimeout("fadeMyDiv();", 5000); //call fade in 3 seconds
                 }
             )
 
             function fadeMyDiv() {
-                $("#myDiv").fadeOut('slow');
+                $("#whiteBackdrop").fadeOut('slow');
+                $("#loadingTxt").fadeOut('slow');
+                $("#loading").fadeOut('slow');
             }
         </script>
 

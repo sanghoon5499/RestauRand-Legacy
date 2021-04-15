@@ -1,5 +1,5 @@
 #loading {
-  background: url("spinner.gif") no-repeat center center;
+  background: url("ripple2.gif") no-repeat center center;
   /*background-color: red;*/
   position: absolute;
   top: 0;
@@ -7,6 +7,21 @@
   height: 100%;
   width: 100%;
   z-index: 9999999;
+}
+
+#whiteBackdrop {
+  background-color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 9999998;
+}
+
+#loadingTxt {
+  font-family: Arial, Helvetica, sans-serif;
+  top: 60%;
 }
 
 /* Optional: Makes the sample page fill the window. */
@@ -55,7 +70,7 @@ body {
 }
 
 #map {
-  top: 25%;
+  top: 25.3%;
   left: 50%;
   flex-basis: 0;
   flex-grow: 4;
@@ -68,7 +83,8 @@ body {
   flex-direction: column;
 }
 
-h1 {
+h1,
+h3 {
   position: relative;
   text-align: center;
 }

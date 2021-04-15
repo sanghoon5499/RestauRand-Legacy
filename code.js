@@ -14,6 +14,11 @@
 //   - how to hide sensitive information on GitHub
 
 
+// idea: have a list of messages to display when loading up the map
+//   document.getElementById("loadingTxt").innerHTML = messages[random];
+
+
+
 
 
 // This example requires the Places library. Include the libraries=places
@@ -84,21 +89,23 @@ function initMap() {
             // obj["data"] += jsonify(results)
             addPlaces(results, map, load);
 
-            if (load == 2) {
-                const filename = 'data.json';
-                const jsonStr = JSON.stringify(obj);
+            /////////////////////////////////////////////////////////////////////////////////
+            // If you want to be able to download the list of restaurants, enable this code
+            // if (load == 2) {
+            //     const filename = 'data.json';
+            //     const jsonStr = JSON.stringify(obj);
         
-                let element = document.createElement('a');
-                element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(jsonStr));
-                element.setAttribute('download', filename);
+            //     let element = document.createElement('a');
+            //     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(jsonStr));
+            //     element.setAttribute('download', filename);
         
-                element.style.display = 'none';
-                document.body.appendChild(element);
+            //     element.style.display = 'none';
+            //     document.body.appendChild(element);
         
-                element.click();
+            //     element.click();
         
-                document.body.removeChild(element);
-            }
+            //     document.body.removeChild(element);
+            // }
             moreButton.disabled = !pagination || !pagination.hasNextPage;
 
             if (load != 2) {
@@ -182,7 +189,6 @@ function addPlaces(places, map, load) {
     if (load == 2) {
         const geocoder = new google.maps.Geocoder();
         geocodeAddress(geocoder, map, address);
-        document.getElementById("loading").style.display = "none";
     }
     
 
