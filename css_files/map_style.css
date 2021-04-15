@@ -1,6 +1,6 @@
 #loading {
-  background: url("loading_icons/ripple2.gif") no-repeat center center;
-  /*background-color: red;*/
+  background: url("ripple2.gif") no-repeat center center;
+  /*background: url("loading_icons/ripple2.gif") no-repeat center center;     <-- this doesn't work for some reason*/
   position: absolute;
   top: 0;
   left: 0;

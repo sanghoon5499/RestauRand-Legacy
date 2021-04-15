@@ -1,10 +1,12 @@
 body {
   font-family: "Staatliches";
+  font-size: 120%;
 }
 
 input[type="text"],
 select {
   font-family: "Staatliches";
+  font-size: 120%;
   text-align: center;
   width: 100%;
   padding: 12px 20px;
@@ -16,6 +18,7 @@ select {
 }
 
 input[type="button"] {
+  font-size: 120%;
   font-family: "Staatliches";
   width: 100%;
   background-color: #fbac00;
@@ -34,7 +37,7 @@ input[type="button"]:hover {
 div {
   margin-left: auto;
   margin-right: auto;
-  width: 25%;
+  width: 35%;
   border-radius: 5px;
   background-color: #f2f2f2;
   padding: 20px;
