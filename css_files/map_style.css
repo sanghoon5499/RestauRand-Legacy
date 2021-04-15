@@ -1,5 +1,5 @@
 #loading {
-  background: url("ripple2.gif") no-repeat center center;
+  background: url("loading_icons/ripple2.gif") no-repeat center center;
   /*background-color: red;*/
   position: absolute;
   top: 0;
@@ -20,8 +20,9 @@
 }
 
 #loadingTxt {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Staatliches";
   top: 60%;
+  font-size: 200%;
 }
 
 /* Optional: Makes the sample page fill the window. */
@@ -37,11 +38,12 @@ body {
 }
 
 #rname {
+  font-family: "Staatliches";
   font-size: 300%;
 }
 
 #info {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Staatliches";
 
   position: absolute;
   outline: 5px dashed black;

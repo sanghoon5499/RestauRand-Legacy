@@ -1,9 +1,10 @@
 body {
-  font-family: "Valera Round", sans-serif;
+  font-family: "Staatliches";
 }
 
 input[type="text"],
 select {
+  font-family: "Staatliches";
   text-align: center;
   width: 100%;
   padding: 12px 20px;
@@ -15,6 +16,7 @@ select {
 }
 
 input[type="button"] {
+  font-family: "Staatliches";
   width: 100%;
   background-color: #fbac00;
   color: white;
