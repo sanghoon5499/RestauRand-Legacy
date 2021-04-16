@@ -31,4 +31,4 @@ main page:
 maps page:
 - show the restaurant location
 - with other info
-- another button: find me a differen restaurant.
+- another button: find me a different restaurant.
