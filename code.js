@@ -16,7 +16,7 @@
 
 // idea: have a list of messages to display when loading up the map
 //   document.getElementById("loadingTxt").innerHTML = messages[random];
-
+ 
 
 
 
@@ -52,14 +52,6 @@ function initMap() {
     }
     
 
-    moreButton.onclick = function () { // might not need this anymore since im making it run no matter what
-        moreButton.disabled = true;
-
-        if (getNextPage) {
-            getNextPage();
-        }
-    };
-
     obj = {
         "data": [],
     }
@@ -91,21 +83,21 @@ function initMap() {
 
             /////////////////////////////////////////////////////////////////////////////////
             // If you want to be able to download the list of restaurants, enable this code
-            // if (load == 2) {
-            //     const filename = 'data.json';
-            //     const jsonStr = JSON.stringify(obj);
+            if (load == 2) {
+                const filename = 'data.json';
+                const jsonStr = JSON.stringify(obj);
         
-            //     let element = document.createElement('a');
-            //     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(jsonStr));
-            //     element.setAttribute('download', filename);
+                let element = document.createElement('a');
+                element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(jsonStr));
+                element.setAttribute('download', filename);
         
-            //     element.style.display = 'none';
-            //     document.body.appendChild(element);
+                element.style.display = 'none';
+                document.body.appendChild(element);
         
-            //     element.click();
+                element.click();
         
-            //     document.body.removeChild(element);
-            // }
+                document.body.removeChild(element);
+            }
             moreButton.disabled = !pagination || !pagination.hasNextPage;
 
             if (load != 2) {
@@ -167,6 +159,10 @@ function addPlaces(places, map, load) {
         }
     }
 
+
+
+    // my code:
+
     // choose a random index:
     var idx = Math.floor(Math.random() * placesArr.length);
     document.getElementById("rname").innerHTML = placesArr[idx];
@@ -177,7 +173,7 @@ function addPlaces(places, map, load) {
     var price_level = obj["data"][idx]["price_level"];
     
     var address = obj["data"][idx]["vicinity"];
-    var straddress = address.substring(0, address.indexOf(",")) // cuts of "Waterloo, ON" part of address
+    var straddress = address.substring(0, address.indexOf(",")) // cuts of "...,Waterloo, ON" part of address
 
 
     //replace element
@@ -200,6 +196,7 @@ function addPlaces(places, map, load) {
     console.log(straddress);
     console.log(obj["data"]["geometry"]);
     console.log(obj["data"][0]);
+    console.log(obj["data"]);
 }
 
 
