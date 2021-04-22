@@ -1,31 +1,18 @@
-// key: AIzaSyBMCbfKMOQmplUNvOiHNBalzBiXXabRG2c
-
-
 // https://www.w3schools.com/html/tryit.asp?filename=tryhtml5_geolocation
 // https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API 
 //   - HTML geolocation to find the user's lat and long
-
-
-// https://developers.google.com/maps/documentation/javascript/directions
-//   - with user's lat and long, we can try to give the directions
-
-
-// https://gist.github.com/derzorngottes/3b57edc1f996dddcab25
-//   - how to hide sensitive information on GitHub
-
 
 // idea: have a list of messages to display when loading up the map
 //   document.getElementById("loadingTxt").innerHTML = messages[random];
  
 
-
+// Use this key for GitHub Pages deployment: AIzaSyBMCbfKMOQmplUNvOiHNBalzBiXXabRG2c
 
 
 // This example requires the Places library. Include the libraries=places
 // parameter when you first load the API. For example:
-// <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIwzALxUPNbatRBj3Xi1Uhp0fFzwWNBkE&libraries=places">
+// <script src="https://maps.googleapis.com/maps/api/js?key=[YOUR_KEY]&libraries=places">
 function initMap() {
-    //document.getElementById("information").style.display = "none";
     document.getElementById("loading").style.display = "block";
     // var latitude = localStorage.getItem("lat");
     // var longitude = localStorage.getItem("lng");
@@ -46,7 +33,7 @@ function initMap() {
     // automate getNextPage
     for (let i = 0; i < 3; i++){
         moreButton.disabled = true;
-        if (getNextPage) {            // this if statement always false?
+        if (getNextPage) {
             getNextPage();
         }
     }
@@ -83,6 +70,7 @@ function initMap() {
 
             /////////////////////////////////////////////////////////////////////////////////
             // If you want to be able to download the list of restaurants, enable this code
+            /*
             if (load == 2) {
                 const filename = 'data.json';
                 const jsonStr = JSON.stringify(obj);
@@ -98,6 +86,7 @@ function initMap() {
         
                 document.body.removeChild(element);
             }
+            */
             moreButton.disabled = !pagination || !pagination.hasNextPage;
 
             if (load != 2) {
@@ -137,13 +126,9 @@ function addPlaces(places, map, load) {
             position: place.geometry.location,
         });
         map.setMapTypeId('terrain');
-        // google.maps.event.trigger(map, 'resize')
-
-        
 
         const li = document.createElement("li");
         li.textContent = place.name;
-
         
         // use place.name to add to array
         if (placesArr.length < 60) {
@@ -161,34 +146,25 @@ function addPlaces(places, map, load) {
 
 
 
-    // my code:
-
-    // choose a random index:
+    // random variables
     var idx = Math.floor(Math.random() * placesArr.length);
-    document.getElementById("rname").innerHTML = placesArr[idx];
-    //alert(placesArr[idx])
-
-
-    // maybe create a function for this later
     var price_level = obj["data"][idx]["price_level"];
-    
     var address = obj["data"][idx]["vicinity"];
     var straddress = address.substring(0, address.indexOf(",")) // cuts of "...,Waterloo, ON" part of address
 
 
-    //replace element
+    // replace elements
+    document.getElementById("rname").innerHTML = placesArr[idx];
     document.getElementById("address").innerHTML = straddress;
 
 
 
-    // we found a place; pan the map to that location:
+    // found a place; pan the map to that location:
     if (load == 2) {
         const geocoder = new google.maps.Geocoder();
         geocodeAddress(geocoder, map, address);
     }
     
-
-
 
 
     // debug
