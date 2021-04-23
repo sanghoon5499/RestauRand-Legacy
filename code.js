@@ -7,6 +7,7 @@
  
 
 // Use this key for GitHub Pages deployment: AIzaSyBMCbfKMOQmplUNvOiHNBalzBiXXabRG2c
+// Local: AIzaSyBIwzALxUPNbatRBj3Xi1Uhp0fFzwWNBkE
 
 
 function randomLatLng(min, max) {
@@ -61,7 +62,7 @@ function initMap() {
 
     //////////////////////////////////////////////////////////////////////
     // Create map
-    const waterloo = { lat: latitude, lng: longitude };
+    const waterloo = { lat: latitude, lng: longitude }; // lat: 43.46, lng: -80.52  <-- default values
 
     var map = new google.maps.Map(document.getElementById("map"), {
         center: waterloo,
@@ -205,11 +206,9 @@ function addPlaces(places, map, load) {
 
 
 
-    // found a place; pan the map to that location:
-    if (load == 2) {
-        const geocoder = new google.maps.Geocoder();
-        geocodeAddress(geocoder, map, address);
-    }
+    // found a place; pan the map to that location and put a marker on it:
+    const geocoder = new google.maps.Geocoder();
+    geocodeAddress(geocoder, map, address);
     
 
 
@@ -223,7 +222,7 @@ function addPlaces(places, map, load) {
 
 
 
-// converts location to longitude and latitude
+// pans the map, and sets a red marker
 function geocodeAddress(geocoder, resultsMap, fullAddress) {
     const address = fullAddress;
     geocoder.geocode({ address: address }, (results, status) => {

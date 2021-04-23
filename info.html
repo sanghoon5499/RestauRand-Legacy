@@ -32,9 +32,6 @@
 
     <script>
         function addressAllow() {
-            localStorage.setItem("userLat", 0);
-            localStorage.setItem("userLng", 0);
-
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showPosition);
             } else {
