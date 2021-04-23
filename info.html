@@ -17,11 +17,11 @@
 
     <div>
         <form name="info">
-        <label for="name">Name: *</label>
+        <label for="name">Name: </label>
         <input type="text" autocomplete="off" id="name" name="name" placeholder="name">
         <br>
     
-        <input type="button" id="address" name="address" value="Click to allow location access" onClick="addressAllow()">
+        <input type="button" id="address" name="address" value="Find restaurants near you" onClick="addressAllow()">
 
         
         <br><br><br><br><br>
@@ -32,6 +32,9 @@
 
     <script>
         function addressAllow() {
+            localStorage.setItem("userLat", 0);
+            localStorage.setItem("userLng", 0);
+
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(showPosition);
             } else {
@@ -49,7 +52,7 @@
             var name = document.forms["info"]["name"].value;
 
             if (name == "") {
-                alert("name is invalid / location access needs to be granted!")
+                alert("Enter a name!")
             }
 
             else {

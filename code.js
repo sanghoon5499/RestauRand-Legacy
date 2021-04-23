@@ -9,17 +9,60 @@
 // Use this key for GitHub Pages deployment: AIzaSyBMCbfKMOQmplUNvOiHNBalzBiXXabRG2c
 
 
+function randomLatLng(min, max) {
+    return (Math.random() * (max - min) + min).toFixed(4);
+}
+
+
 // This example requires the Places library. Include the libraries=places
 // parameter when you first load the API. For example:
 // <script src="https://maps.googleapis.com/maps/api/js?key=[YOUR_KEY]&libraries=places">
 function initMap() {
     document.getElementById("loading").style.display = "block";
-    // var latitude = localStorage.getItem("lat");
-    // var longitude = localStorage.getItem("lng");
 
+
+
+    //////////////////////////////////////////////////////////////////////
+    // Loading messages - add to the list as you see fit
+
+    var messages = ["Did you know? Waterloo has at least five restaurants.", "Richard get back to work", "What are you craving?", "'boba' - Richard",
+                    "Did you know? Kitchener does in fact, have kitchens.", "Did you know? Cambridge doesn't have a bridge named Cam.",
+                    "Get ready for the pick!", "Burgers? Chinese food? Pizza?", "Did you know? Waterloo has plenty of water."];
+    var messageIdx = Math.floor(Math.random() * messages.length);
+    document.getElementById("loadingTxt").innerHTML = messages[messageIdx];
+    
+    //////////////////////////////////////////////////////////////////////
+
+
+    //////////////////////////////////////////////////////////////////////
+    // Setting latitude, longitude
+
+    // user selected to find a restaurant near them:
+    var latitude = localStorage.getItem("userLat");
+    var longitude = localStorage.getItem("userLng"); 
+
+    // user wanted to hae full random:
+    if (localStorage.getItem("userLat") == 0) {
+        latitude = randomLatLng(43.44, 43.47);
+        longitude = randomLatLng(-80.58, -80.46);
+    }
 
     // Create the map.
-    const waterloo = { lat: 43.46, lng: -80.52 };  // default values
+    //  - convert lat, long to int:
+    latitude = parseFloat(latitude);
+    longitude = parseFloat(longitude);
+
+    console.log(latitude);
+    console.log(longitude);
+
+    //////////////////////////////////////////////////////////////////////
+
+
+
+    //////////////////////////////////////////////////////////////////////
+    // Create map
+    const waterloo = { lat: latitude, lng: longitude };
+
     var map = new google.maps.Map(document.getElementById("map"), {
         center: waterloo,
         zoom: 17,
@@ -105,6 +148,9 @@ function initMap() {
     );
 }
 
+
+//////////////////////////////////////////////////////////////////////
+// Pick a random restaurant
 
 var placesArr = [];
 function addPlaces(places, map, load) {
