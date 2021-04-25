@@ -2,8 +2,6 @@
 // https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API 
 //   - HTML geolocation to find the user's lat and long
 
-// idea: have a list of messages to display when loading up the map
-//   document.getElementById("loadingTxt").innerHTML = messages[random];
 
 // fix: red marker may be offset from the google maps marker
 
