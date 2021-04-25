@@ -7,6 +7,9 @@
 
 // fix: red marker may be offset from the google maps marker
 
+// QOL: some restaurants may have multiple entries due to multiple locations
+//  can fix by removing duplicate entries and simply include the closest restaurant
+
 
 // Use this key for GitHub Pages deployment: AIzaSyBMCbfKMOQmplUNvOiHNBalzBiXXabRG2c
 // Local: AIzaSyBIwzALxUPNbatRBj3Xi1Uhp0fFzwWNBkE
@@ -217,7 +220,7 @@ function pickRandomRestaurant(map, obj) {
     console.log(idx);
     var price_level = obj["data"][idx]["price_level"];
     var address = obj["data"][idx]["vicinity"];
-    var straddress = address.substring(0, address.indexOf(",")) // cuts of "...,Waterloo, ON" part of address
+    var straddress = address.substring(0, address.indexOf(", Waterloo")) // cuts of "..., Waterloo, ON" part of address
 
 
     // replace elements
