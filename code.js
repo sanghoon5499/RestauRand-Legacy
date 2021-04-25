@@ -4,7 +4,9 @@
 
 // idea: have a list of messages to display when loading up the map
 //   document.getElementById("loadingTxt").innerHTML = messages[random];
- 
+
+// fix: red marker may be offset from the google maps marker
+
 
 // Use this key for GitHub Pages deployment: AIzaSyBMCbfKMOQmplUNvOiHNBalzBiXXabRG2c
 // Local: AIzaSyBIwzALxUPNbatRBj3Xi1Uhp0fFzwWNBkE
@@ -14,7 +16,7 @@ function randomLatLng(min, max) {
     return (Math.random() * (max - min) + min).toFixed(4);
 }
 
-
+var placeNameArr = [];
 // This example requires the Places library. Include the libraries=places
 // parameter when you first load the API. For example:
 // <script src="https://maps.googleapis.com/maps/api/js?key=[YOUR_KEY]&libraries=places">
@@ -27,11 +29,12 @@ function initMap() {
     // Loading messages - add to the list as you see fit
 
     var messages = ["Did you know? Waterloo has at least five restaurants.", "Richard get back to work", "What are you craving?", "'boba' - Richard",
-                    "Did you know? Kitchener does in fact, have kitchens.", "Did you know? Cambridge doesn't have a bridge named Cam.",
-                    "Get ready for the pick!", "Burgers? Chinese food? Pizza?", "Did you know? Waterloo has plenty of water."];
+        "Did you know? Kitchener does in fact, have kitchens.", "Did you know? Cambridge doesn't have a bridge named Cam.",
+        "Get ready for the pick!", "Burgers? Chinese food? Pizza?", "Did you know? Waterloo has plenty of water.",
+        "Mmmmmmmmmmmm", "Don't drive under influence"];
     var messageIdx = Math.floor(Math.random() * messages.length);
     document.getElementById("loadingTxt").innerHTML = messages[messageIdx];
-    
+
     //////////////////////////////////////////////////////////////////////
 
 
@@ -40,7 +43,7 @@ function initMap() {
 
     // user selected to find a restaurant near them:
     var latitude = localStorage.getItem("userLat");
-    var longitude = localStorage.getItem("userLng"); 
+    var longitude = localStorage.getItem("userLng");
 
     // user wanted to hae full random:
     if (localStorage.getItem("userLat") == 0) {
@@ -73,15 +76,15 @@ function initMap() {
     const service = new google.maps.places.PlacesService(map);
     let getNextPage;
     const moreButton = document.getElementById("more");
-    
+
     // automate getNextPage
-    for (let i = 0; i < 3; i++){
+    for (let i = 0; i < 3; i++) {
         moreButton.disabled = true;
         if (getNextPage) {
             getNextPage();
         }
     }
-    
+
 
     obj = {
         "data": [],
@@ -92,12 +95,13 @@ function initMap() {
         { location: waterloo, radius: 1000, type: "restaurant" },
         (results, status, pagination) => {
             if (status !== "OK" || !results) {
-                console.log(obj["data"])
-                console.log("finished")
+                console.log(obj["data"]);
+                console.log("finished");
                 return;
             }
+
             for (i in results) {
-                let index = parseInt(i)
+                let index = parseInt(i);
                 if (load == 1) {
                     index += 20
                 }
@@ -105,8 +109,11 @@ function initMap() {
                     index += 40
                 }
                 index.toString()
-                //console.log(results[i])
+                //console.log(results[i]);
+                //console.log(results.length);
                 obj["data"][index] = results[i]
+                console.log(index);
+                console.log(obj["data"][index]);
             }
 
             // obj["data"] += jsonify(results)
@@ -145,63 +152,76 @@ function initMap() {
                     load++
                 };
             }
+
+            else if (load == 2) {
+                console.log("yes");
+                pickRandomRestaurant(map, obj);
+            }
         }
     );
+
 }
 
 
 //////////////////////////////////////////////////////////////////////
-// Pick a random restaurant
+// Add place to name array and add notable locations to map
 
-var placesArr = [];
 function addPlaces(places, map, load) {
     const placesList = document.getElementById("places");
-
+    console.log(places.length + 1000000);
     for (const place of places) {
         if (place.geometry && place.geometry.location) {
-        const image = {
-            url: place.icon,
-            size: new google.maps.Size(0, 0),
-            origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(17, 14),
-            scaledSize: new google.maps.Size(25, 25),
-        };
-        new google.maps.Marker({
-            map,
-            icon: image,
-            title: place.name,
-            position: place.geometry.location,
-        });
-        map.setMapTypeId('terrain');
+            const image = {
+                url: place.icon,
+                size: new google.maps.Size(0, 0),
+                origin: new google.maps.Point(0, 0),
+                anchor: new google.maps.Point(17, 14),
+                scaledSize: new google.maps.Size(25, 25),
+            };
+            new google.maps.Marker({
+                map,
+                icon: image,
+                title: place.name,
+                position: place.geometry.location,
+            });
+            //console.log(place.name);
+            map.setMapTypeId('terrain');
 
-        const li = document.createElement("li");
-        li.textContent = place.name;
-        
-        // use place.name to add to array
-        if (placesArr.length < 60) {
-            placesArr.push(place.name);
-        }
-        console.log(place.name)
+            const li = document.createElement("li");
+            li.textContent = place.name;
+
+            // use place.name to add to array
+            if (placeNameArr.length < 60) {
+                placeNameArr.push(place.name);
+                //for (j in place.types) {
+                console.log(place.business_status); // add index if loop
+                //}//
+            }
+            //console.log(place.name);
 
 
-        placesList.appendChild(li);
-        li.addEventListener("click", () => {
-            map.setCenter(place.geometry.location);
-        });
+            placesList.appendChild(li);
+            li.addEventListener("click", () => {
+                map.setCenter(place.geometry.location);
+            });
         }
     }
+}
 
+//////////////////////////////////////////////////////////////////////
+// Pick a random restaurant
 
-
+function pickRandomRestaurant(map, obj) {
     // random variables
-    var idx = Math.floor(Math.random() * placesArr.length);
+    var idx = Math.floor(Math.random() * placeNameArr.length);
+    console.log(idx);
     var price_level = obj["data"][idx]["price_level"];
     var address = obj["data"][idx]["vicinity"];
     var straddress = address.substring(0, address.indexOf(",")) // cuts of "...,Waterloo, ON" part of address
 
 
     // replace elements
-    document.getElementById("rname").innerHTML = placesArr[idx];
+    document.getElementById("rname").innerHTML = placeNameArr[idx];
     document.getElementById("address").innerHTML = straddress;
 
 
@@ -209,32 +229,37 @@ function addPlaces(places, map, load) {
     // found a place; pan the map to that location and put a marker on it:
     const geocoder = new google.maps.Geocoder();
     geocodeAddress(geocoder, map, address);
-    
-
 
     // debug
-    console.log(obj["data"][idx]["price_level"])
+    console.log(obj["data"][idx]["price_level"]);
     console.log(straddress);
     console.log(obj["data"]["geometry"]);
     console.log(obj["data"][0]);
     console.log(obj["data"]);
 }
 
-
-
 // pans the map, and sets a red marker
 function geocodeAddress(geocoder, resultsMap, fullAddress) {
     const address = fullAddress;
     geocoder.geocode({ address: address }, (results, status) => {
-      if (status === "OK") {
-        resultsMap.setCenter(results[0].geometry.location);
-        new google.maps.Marker({
-          map: resultsMap,
-          position: results[0].geometry.location,
-        });
-      } else {
-        alert("Geocode was not successful for the following reason: " + status);
-      }
+        if (status === "OK") {
+            resultsMap.setCenter(results[0].geometry.location);
+            console.log("this one");
+            // red marker
+            new google.maps.Marker({
+                map: resultsMap,
+                //title: results[0].name,
+                position: results[0].geometry.location,
+            });
+        } else {
+            alert("Geocode was not successful for the following reason: " + status);
+        }
     });
-  }
-  
+}
+
+
+var filter1 = 1, filter2 = 1, filter3 = 1, filter4 = 1;
+// two options:
+// 1. go through the array and filter out all entries, then random select (prob more efficient)
+//
+// 2. keep randomly iterating through the array until an entry is valid
