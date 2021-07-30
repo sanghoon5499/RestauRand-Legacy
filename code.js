@@ -141,6 +141,8 @@ function initMap() {
             */
             moreButton.disabled = !pagination || !pagination.hasNextPage;
 
+            console.log("load value: ", load)
+
             if (load != 2) {
                 pagination.nextPage();
                 load++
