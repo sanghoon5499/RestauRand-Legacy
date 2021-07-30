@@ -1,34 +1,28 @@
 # RestauRand
+![image](https://user-images.githubusercontent.com/17420160/127677092-a1b27f29-26ec-45f7-9f70-b597f82b7e37.png)
+  
+Restaurand helps you find a restaurant when you don't know what to eat.
+The app is still in beta, with many features still not implemented.
+
+Try it here: https://sanghoon5499.github.io/RestauRand/
 
 
 
-https://developers.google.com/maps/documentation/places/web-service/overview <- maps places api
+Screenshots:  
 
+Main Page:
+![image](https://user-images.githubusercontent.com/17420160/127677198-71f54d3d-bbd1-43f0-924a-c476fd01b0a8.png)   
 
-Randomly selects a restaurant in waterloo for you to go to.
-- maybe instead of waterloo it has a 20km radius or whatever (user can choose)
-- add filters later
+Information Page*:  
+![image](https://user-images.githubusercontent.com/17420160/127677233-3c939579-dd1a-4e3d-8b0e-6d2a6a508439.png)  
 
+Loading Screen:
+![image](https://user-images.githubusercontent.com/17420160/127676110-f0483fec-c5f2-4521-92d1-ef7c32ac8cbb.png)  
 
-
-1. find out how to get a list of all restaurants in waterloo
-- JSON stuff
-
-2. display them
-- yes
-
-3. randomize
-- obj["data"][*index*]
+Results:
+![image](https://user-images.githubusercontent.com/17420160/127676205-3848ca66-2d99-4725-b259-4accb256c665.png)  
 
 
 
-main page:
-- button: "Find me a restaurant"
-- if button click:
-   - store random_rest. in localStorage
-   - redirect to page with google map
 
-maps page:
-- show the restaurant location
-- with other info
-- another button: find me a different restaurant.
+_*Personal data such as name and location data is not collected and stored anywhere._
