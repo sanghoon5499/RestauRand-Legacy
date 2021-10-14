@@ -29,4 +29,4 @@ Results:
 
 
 
-_*Personal data such as name and location data is not collected and stored anywhere._
+_*Personal data such as name and location data is not stored anywhere._
