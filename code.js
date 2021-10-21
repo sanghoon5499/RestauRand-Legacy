@@ -42,8 +42,11 @@ function initMap() {
     var latitude = localStorage.getItem("userLat");
     var longitude = localStorage.getItem("userLng"); 
 
+    console.log(latitude)
+    console.log(longitude)
+    
     // user wanted to hae full random:
-    if (localStorage.getItem("userLat") == 0) {
+    if (localStorage.getItem("userLat") == 0 || localStorage.getItem("userLat") == null) {
         latitude = randomLatLng(43.44, 43.47);
         longitude = randomLatLng(-80.58, -80.46);
     }
