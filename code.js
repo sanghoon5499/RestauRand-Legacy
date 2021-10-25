@@ -26,9 +26,7 @@ function initMap() {
     //////////////////////////////////////////////////////////////////////
     // Loading messages - add to the list as you see fit
 
-    var messages = ["Did you know? Waterloo has at least five restaurants.", "Richard get back to work", "What are you craving?", "'boba' - Richard",
-                    "Did you know? Kitchener does in fact, have kitchens.", "Did you know? Cambridge doesn't have a bridge named Cam.",
-                    "Get ready for the pick!", "Burgers? Chinese food? Pizza?", "Did you know? Waterloo has plenty of water."];
+    var messages = ["What are you craving?", "Get ready for the pick!", "Burgers? Chinese food? Pizza?";
     var messageIdx = Math.floor(Math.random() * messages.length);
     document.getElementById("loadingTxt").innerHTML = messages[messageIdx];
     
