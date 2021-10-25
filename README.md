@@ -8,8 +8,9 @@ The app is still in beta, with many features still not implemented.
   
 
 
-Try it here: https://sanghoon5499.github.io/RestauRand/
-
+Try it here: https://sanghoon5499.github.io/RestauRand/  
+For some odd reason, the app won't work on FireFox.
+If maps.html fails to load, please try refreshing the tab.
 
 
 Screenshots:  
