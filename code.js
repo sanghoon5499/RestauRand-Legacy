@@ -26,7 +26,7 @@ function initMap() {
     //////////////////////////////////////////////////////////////////////
     // Loading messages - add to the list as you see fit
 
-    var messages = ["What are you craving?", "Get ready for the pick!", "Burgers? Chinese food? Pizza?";
+    var messages = ["What are you craving?", "Get ready for the pick!", "Burgers? Chinese food? Pizza?"];
     var messageIdx = Math.floor(Math.random() * messages.length);
     document.getElementById("loadingTxt").innerHTML = messages[messageIdx];
     
