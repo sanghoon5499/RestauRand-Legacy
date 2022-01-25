@@ -8,6 +8,8 @@ Features I'm trying to add:
 - filter options (sortby price, type of food, etc)
 - view other restaurants in a list
   
+These will be added to a new version of RestauRand  
+  
 
 ![image](https://user-images.githubusercontent.com/17420160/127677092-a1b27f29-26ec-45f7-9f70-b597f82b7e37.png)  
   
