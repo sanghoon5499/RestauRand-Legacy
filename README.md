@@ -15,11 +15,6 @@ These will be added to a new version of RestauRand
   
 
 
-Try it here: https://sanghoon5499.github.io/RestauRand-Legacy/
-**The app will not work on FireFox.**  
-If maps.html fails to load, please try refreshing the tab.
-
-
 Screenshots:  
 
 Main Page:
