@@ -4,7 +4,7 @@
 
 // idea: have a list of messages to display when loading up the map
 //   document.getElementById("loadingTxt").innerHTML = messages[random];
- 
+
 
 // Use this key for GitHub Pages deployment: AIzaSyBMCbfKMOQmplUNvOiHNBalzBiXXabRG2c
 // Local: AIzaSyBIwzALxUPNbatRBj3Xi1Uhp0fFzwWNBkE
@@ -26,10 +26,10 @@ function initMap() {
     //////////////////////////////////////////////////////////////////////
     // Loading messages - add to the list as you see fit
 
-    var messages = ["Get ready for the pick!"];
+    var messages = ["What are you craving?", "Get ready for the pick!", "Burgers? Chinese food? Pizza?"];
     var messageIdx = Math.floor(Math.random() * messages.length);
     document.getElementById("loadingTxt").innerHTML = messages[messageIdx];
-    
+
     //////////////////////////////////////////////////////////////////////
 
 
@@ -42,7 +42,7 @@ function initMap() {
 
     console.log(latitude)
     console.log(longitude)
-    
+
     // user wanted to hae full random:
     if (localStorage.getItem("userLat") == 0 || localStorage.getItem("userLat") == null) {
         latitude = randomLatLng(43.44, 43.47);
@@ -74,7 +74,7 @@ function initMap() {
     const service = new google.maps.places.PlacesService(map);
     let getNextPage;
     const moreButton = document.getElementById("more");
-    
+
     // automate getNextPage
     for (let i = 0; i < 3; i++){
         moreButton.disabled = true;
@@ -82,7 +82,7 @@ function initMap() {
             getNextPage();
         }
     }
-    
+
 
     obj = {
         "data": [],
@@ -177,7 +177,7 @@ function addPlaces(places, map, load) {
 
         const li = document.createElement("li");
         li.textContent = place.name;
-        
+
         // use place.name to add to array
         if (placesArr.length < 60) {
             placesArr.push(place.name);
@@ -210,7 +210,7 @@ function addPlaces(places, map, load) {
     // found a place; pan the map to that location and put a marker on it:
     const geocoder = new google.maps.Geocoder();
     geocodeAddress(geocoder, map, address);
-    
+
 
 
     // debug
@@ -238,4 +238,3 @@ function geocodeAddress(geocoder, resultsMap, fullAddress) {
       }
     });
   }
-  
